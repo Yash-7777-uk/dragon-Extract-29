@@ -61,7 +61,7 @@ async def account_login(bot: Client, m: Message):
     scraper = cloudscraper.create_scraper()
     res = scraper.post(rwa_url, data=info, headers=hdr).content
     output = json.loads(res)
-    #print(output)
+    print(output)
     userid = output["data"]["userid"]
     token = output["data"]["token"]
     hdr1 = {
@@ -71,8 +71,8 @@ async def account_login(bot: Client, m: Message):
         "User-Id": userid,
         "Authorization": token
         }
-    #print(userid)
-    #print(token)
+    print(userid)
+    print(token)
     await editable.edit("**login Successful**")
     cour_url = "https://mgconceptapi.classx.co.in/get/mycourse?userid="
     res1 = requests.get("https://mgconceptapi.classx.co.in/get/mycourse?userid="+userid, headers=hdr1)
