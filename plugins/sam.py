@@ -76,10 +76,10 @@ async def account(bot: Client, m: Message):
     
     res = s.post(rwa_url, data=info, headers=hdr)
     output = res.json()
-    #print(output)
+    print(output)
     userid = output["data"]["userid"]
     token = output["data"]["token"]
-    #await m.reply_text(f"```{token}```")
+    await m.reply_text(f"```{token}```")
     hdr1 = {
     'Authorization': token,
     'User-Agent': 'Mozilla/5.0 (Linux; Android 12; RMX2121) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Mobile Safari/537.36',
@@ -89,7 +89,7 @@ async def account(bot: Client, m: Message):
 }
 
     await editable.edit("**login Successful**")
-    # await editable.edit(f"You have these Batches :-\n{raw_text}"
+     await editable.edit(f"You have these Batches :-\n{raw_text}"
     res1 = s.get(f'https://samyakapi.teachx.in/get/mycourseweb?userid={userid}', headers=hdr1)
     b_data = res1.json()['data']
     cool = ""
@@ -97,7 +97,7 @@ async def account(bot: Client, m: Message):
         t_name1 =data['course_name']
         FFF = "**BATCH-ID - BATCH NAME - INSTRUCTOR**"
         aa = f" ```{data['id']}```      - **{data['course_name']}**\n\n"
-        # aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
+         aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
@@ -106,7 +106,7 @@ async def account(bot: Client, m: Message):
     editable1 = await m.reply_text("**Now send the Batch ID to Download**")
     input2 = message = await bot.listen(editable.chat.id)
     raw_text2 = input2.text
-    # sub_id_url="https://rgvikramjeetapi.classx.co.in/get/allsubjectfrmlivecourseclass?courseid="
+     sub_id_url="https://rgvikramjeetapi.classx.co.in/get/allsubjectfrmlivecourseclass?courseid="
     scraper = cloudscraper.create_scraper()
     html = scraper.get("https://samyakapi.teachx.in/get/allsubjectfrmlivecourseclass?courseid=" + raw_text2,headers=hdr1).content
     output0 = json.loads(html)
@@ -150,7 +150,7 @@ async def account(bot: Client, m: Message):
                     with open(f'{mm} - {t_name1}.txt', 'a') as f:
                       if len(data["download_link"])>0:
                           b64 = (data["download_link"])
-                          #b65 = f"{data["Title"]}:{data["download_link"]}
+                          b65 = f"{data["Title"]}:{data["download_link"]}
                           inf = {"link":b64}
                           mid = s.post('https://samyak.teachx.in/pages/decrypt', headers=hdr,data=inf).text
                           urlv = "https://cdn.jwplayer.com/manifests/"+mid
