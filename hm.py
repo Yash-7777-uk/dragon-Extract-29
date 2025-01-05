@@ -18,7 +18,7 @@ def exec(cmd):
         print(stderr)
        
 
-        #err = process.stdout.decode()
+        err = process.stdout.decode()
 def pull_run(work, cmds):
     with concurrent.futures.ThreadPoolExecutor(max_workers=work) as executor:
         print("Waiting for tasks to complete")
