@@ -92,7 +92,7 @@ async def account_login(bot: Client, m: Message):
         t_id =data['batchId']
         FFF = "**BATCH-ID - BATCH NAME**"
         aa = f" ```{t_id}```  - **{t_name}**\n\n"
-        # aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
+         aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
@@ -165,10 +165,10 @@ async def account_login(bot: Client, m: Message):
         raw_text4 = input4.text
         await editable1.delete(True)
         resp = s.get(f'https://api.classplusapp.com/v2/course/content/get?courseId={cr}&folderId={raw_text4}', headers=headers)
-        #print(resp)
+        print(resp)
         bdat = resp.json()['data']['courseContent']
         bdat.reverse()
-        #print(bdat)
+        print(bdat)
         cool = ""
         vj1 = ""
         for data in bdat:
@@ -180,7 +180,7 @@ async def account_login(bot: Client, m: Message):
             FFF = "**Topic-ID -Topic NAME **"
             aa = f" ```{id2}``` - **{nam2}  -{dis2}**\n\n"
             if len(f'{vj1}{aa}') > 4096:
-                #print(aa)
+                print(aa)
                 cool = ""
             cool += aa
             mm = "careerplus1"
@@ -196,17 +196,17 @@ async def account_login(bot: Client, m: Message):
         
         for data in ddata:
             id2 = str(data['id'])
-            #idid = f"{data['id']}&"
+            idid = f"{data['id']}&"
             nam2 =  data["name"]
             url2=  data["url"]
             des2=  data["description"]
             
-            #respc = s.get(f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}', headers=headers).json()
-            #urli = respc["url"]
+            respc = s.get(f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}', headers=headers).json()
+            urli = respc["url"]
             FFF = "**Topic-ID -Topic NAME **"
             aa = f" ```{id2}``` - **{nam2}  -{des2}**\n\n"
             if len(f'{vj}{aa}') > 4096:
-                #print(aa)
+                print(aa)
                 cool = ""
             cool += aa
             
@@ -215,6 +215,6 @@ async def account_login(bot: Client, m: Message):
                     f.write(f"{nam2}-{des2}:{url2}\n")
         await m.reply_document(f"{mm}.txt")           
         await editable.edit(f'{"**You have these Videos :-**"}\n\n{FFF}\n\n{cool}')
-        #await m.reply_document(f"{nam2}.txt")
+        await m.reply_document(f"{nam2}.txt")
         await input3.delete(True)
         await m.reply_text("**Now Press /cpd to Download **")
