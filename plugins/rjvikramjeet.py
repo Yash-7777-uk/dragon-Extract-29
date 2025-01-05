@@ -85,7 +85,7 @@ async def account_login(bot: Client, m: Message):
     scraper = cloudscraper.create_scraper()
     res = scraper.post(rwa_url, data=info, headers=hdr).content
     output = json.loads(res)
-    #print(output)
+    print(output)
     userid = output["data"]["userid"]
     token = output["data"]["token"]
     hdr1 = {
