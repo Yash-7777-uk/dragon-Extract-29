@@ -82,8 +82,8 @@ async def account_login(bot: Client, m: Message):
     #print(output)
     userid = output["data"]["userid"]
     token = output["data"]["token"]
-    #print(userid)
-    #print(token)
+    print(userid)
+    print(token)
     if Ins == ("lastexamapi.teachx.in"):
         hdr1 = {
                 "Client-Service": "Appx",
@@ -121,7 +121,7 @@ async def account_login(bot: Client, m: Message):
         await editable.edit("**Header Not Valid**")
     
     await editable.edit("**login Successful**")
-    #cour_url = "https://rozgarapinew.teachx.in/get/mycourse?userid="
+    cour_url = "https://rozgarapinew.teachx.in/get/mycourse?userid="
 
     res1 = requests.get("https://"+Ins+"/get/mycourse?userid="+userid, headers=hdr1)
     b_data = res1.json()['data']
@@ -140,11 +140,11 @@ async def account_login(bot: Client, m: Message):
     input2 = message = await bot.listen(editable.chat.id)
     raw_text2 = input2.text
 
-    # sub_id_url="https://rozgarapinew.teachx.in/get/allsubjectfrmlivecourseclass?courseid="
+     sub_id_url="https://rozgarapinew.teachx.in/get/allsubjectfrmlivecourseclass?courseid="
     res2 = requests.get("https://"+Ins+"/get/allsubjectfrmlivecourseclass?courseid="+raw_text2, headers=hdr1).json()
     subjID = res2["data"]
     await m.reply_text(subjID)
-    #SubiD = input("Enter the Subject Id Show in above Response")
+    SubiD = input("Enter the Subject Id Show in above Response")
 
     editable1 = await m.reply_text("**Enter the Subject Id Show in above Response")
     input3 = message = await bot.listen(editable.chat.id)
@@ -152,34 +152,34 @@ async def account_login(bot: Client, m: Message):
 
     res3 = requests.get("https://"+Ins+"/get/alltopicfrmlivecourseclass?courseid="+raw_text2,"&subjectid="+raw_text3, headers=hdr1)
     b_data2 = res3.json()['data']
-    # print(b_data2)
+     print(b_data2)
     vj = ""
     for data in b_data2:
         tids = (data["topicid"])
         idid = f"{tids}&"
         if len(f"{vj}{idid}") > 9999:
-            ##await m.reply_text(idid)
+            await m.reply_text(idid)
             vj = ""
         vj += idid
-    #print(vj)
+    print(vj)
     vp = ""
     for data in b_data2:
         tn = (data["topic_name"])
         tns = f"{tn}&"
         if len(f"{vp}{tn}") > 9999:
-            ##await m.reply_text(tns)
+            await m.reply_text(tns)
             vp = ""
         vp += tns
-    #print(vp)
+    print(vp)
     cool1 = ""
-    #BBB = ''
+    BBB = ''
     for data in b_data2:
         t_name = (data["topic_name"])
         tid = (data["topicid"])
         zz = len(tid)
         BBB = f"{'**TOPIC-ID    - TOPIC     - VIDEOS**'}\n"
         hh = f"```{tid}```     - **{t_name} - ({zz})**\n"
-        #hh = f"**Topic -** {t_name}\n**Topic ID - ** ```{tid}```\nno. of videos are : {zz}\n\n"
+        hh = f"**Topic -** {t_name}\n**Topic ID - ** ```{tid}```\nno. of videos are : {zz}\n\n"
         if len(f'{cool1}{hh}') > 9999:
             cool1 = ""
         cool1 += hh
@@ -242,7 +242,7 @@ async def account_login(bot: Client, m: Message):
                 tns = f"{tn}"
                 if len(f"{vp}{tn}") > 9999:
                     vp = ""
-        # print("Download Links: \n", tns
+         print("Download Links: \n", tns
                 vp += tn
             vs = ""
             for data in topicid:
@@ -250,10 +250,10 @@ async def account_login(bot: Client, m: Message):
                 tns0 = f"{tn0}"
                 if len(f"{vs}{tn0}") > 9999:
                     vs = ""
-            # print("Download Links: \n", tns
+             print("Download Links: \n", tns
                 vs += tn0
             cool2 = ""
-            #BBB1 = ''
+            BBB1 = ''
             for data in topicid:
                 if data["download_link"]:
                     b64 = (data["download_link"])
@@ -266,15 +266,15 @@ async def account_login(bot: Client, m: Message):
                 ciphertext = bytearray.fromhex(b64decode(b64.encode()).hex())
                 cipher = AES.new(key, AES.MODE_CBC, iv)
                 plaintext = unpad(cipher.decrypt(ciphertext), AES.block_size)
-                #print(plaintext)
+                print(plaintext)
                 b=plaintext.decode('utf-8')
                 cc0 = (f"{tid}:{b}")
                 if len(f'{cool2}{cc0}') > 9999:
-                    ##await m.reply_text(hh)
+                    await m.reply_text(hh)
                     cool2 = ""
                 cool2 += cc0
                 mm = "Ankit-Wih-Rojgar"
-                #await m.reply_text(BBB1, hh)
+                await m.reply_text(BBB1, hh)
                 
                 with open(f'{mm}{t_name}.txt', 'a') as f:
                     f.write(f"{tid}:{b}\n")
