@@ -81,11 +81,11 @@ async def account_login(bot: Client, m: Message):
         "user-agent": "okhttp/5.0.0-alpha.2",
         'Connection': 'Keep-Alive'
        }
-    #proxy_host = ['47.254.153.200:80']
-    #proxies = {
-     #       'https': proxy_host,
-     #       'http': proxy_host,
-     #   }
+    proxy_host = ['47.254.153.200:80']
+    proxies = {
+            'https': proxy_host,
+            'http': proxy_host,
+        }
     editable = await m.reply_text("Send **ID & Password** in this manner otherwise bot will not respond.\n\nSend like this:-  **ID*Password** \n or \nSend **TOKEN** like This this:-  **TOKEN**" )
     input1: Message = await bot.listen(editable.chat.id)
     raw_text = input1.text
@@ -94,7 +94,7 @@ async def account_login(bot: Client, m: Message):
       data["email"] = raw_text.split("*")[0]
       data["password"] = raw_text.split("*")[1]
       await input1.delete(True)
-      #s = requests.Session()
+      s = requests.Session()
       response = s.post(url = url, headers=headers, json=data, timeout=10)
       if response.status_code == 200:
           data = response.json()
@@ -102,7 +102,7 @@ async def account_login(bot: Client, m: Message):
           await m.reply_text(token)
       else:
            await m.reply_text("go back to response")
-      #token = "4ffd1627981589c0a1261f7a114fbbf8bc87c6d9"
+      token = "4ffd1627981589c0a1261f7a114fbbf8bc87c6d9"
       await m.reply_text(f"```{token}```")
     else:
       token = raw_text
@@ -113,7 +113,7 @@ async def account_login(bot: Client, m: Message):
         instructorName=(data["instructorName"])
         FFF="**BATCH-ID - BATCH NAME - INSTRUCTOR**"
         aa =f" ```{data['id']}```      - **{data['batchName']}**\n{data['instructorName']}\n\n"
-        #aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
+        aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
         if len(f'{cool}{aa}')>4096:
             await m.reply_text(aa)
             cool =""
@@ -147,7 +147,7 @@ async def account_login(bot: Client, m: Message):
         tid = (data["id"])
         scraper = cloudscraper.create_scraper()
         ffx = s.get("https://elearn.crwilladmin.com/api/v1/comp/batch-detail/"+raw_text2+"?redirectBy=mybatch&topicId="+tid+"&token="+token).json()
-            #ffx = json.loads(html3)
+            ffx = json.loads(html3)
         vcx =ffx["data"]["class_list"]["batchDescription"]
         vvx =ffx["data"]["class_list"]["classes"]
         vvx.reverse()
@@ -170,20 +170,20 @@ async def account_login(bot: Client, m: Message):
         for y in range(0,len(xv)):
             t =xv[y]
         
-#              xvv = raw_text9.split('&')
-#              for z in range(0,len(xvv)):
-#                  p =xvv[z]
+              xvv = raw_text9.split('&')
+              for z in range(0,len(xvv)):
+                  p =xvv[z]
 
             #gettting all json with diffrent topic id https://elearn.crwilladmin.com/api/v1/comp/batch-detail/881?redirectBy=mybatch&topicId=2324&token=d76fce74c161a264cf66b972fd0bc820992fe57
-            #scraper = cloudscraper.create_scraper()
+            scraper = cloudscraper.create_scraper()
             html4 = s.get("https://elearn.crwilladmin.com/api/v1/comp/batch-detail/"+raw_text2+"?redirectBy=mybatch&topicId="+t+"&token="+token).content
             ff = json.loads(html4)
-            #vc =ff.json()["data"]["class_list"]["batchDescription"]
+            vc =ff.json()["data"]["class_list"]["batchDescription"]
             mm = ff["data"]["class_list"]["batchName"].replace("/ "," ")
             vv =ff["data"]["class_list"]["classes"]
             vv.reverse()
-            #clan =f"**{vc}**\n\nNo of links found in topic-id {raw_text3} are **{len(vv)}**"
-            #await m.reply_text(clan)
+            clan =f"**{vc}**\n\nNo of links found in topic-id {raw_text3} are **{len(vv)}**"
+            await m.reply_text(clan)
             count = 1
             try:
                 for data in vv:
@@ -191,58 +191,58 @@ async def account_login(bot: Client, m: Message):
                     lessonName = (data["lessonName"]).replace("/", "_")
                     
                     bcvid = (data["lessonUrl"][0]["link"])
-                     #lessonName = re.sub('\|', '_', cf)
+                     lessonName = re.sub('\|', '_', cf)
 
                     if bcvid.startswith("62"):
                         try:
-                            #scraper = cloudscraper.create_scraper()
+                            scraper = cloudscraper.create_scraper()
                             html6 = s.get(f"{bc_url}/{bcvid}", headers=bc_hdr).content
                             video = json.loads(html6)
                             video_source = video["sources"][5]
                             video_url = video_source["src"]
-                            #print(video_url)
-                            #scraper = cloudscraper.create_scraper()
+                            print(video_url)
+                            scraper = cloudscraper.create_scraper()
                             html5 = s.get("https://elearn.crwilladmin.com/api/v1/livestreamToken?type=brightcove&vid="+vidid+"&token="+token).content
                             surl = json.loads(html5)
                             stoken = surl["data"]["token"]
-                            #print(stoken)
+                            print(stoken)
                             
                             link = (video_url+"&bcov_auth="+stoken)
-                            #print(link)
+                            print(link)
                         except Exception as e:
                             print(str(e))
-                    #cc = (f"{lessonName}:{link}")
-                    #await m.reply_text(cc)
+                    cc = (f"{lessonName}:{link}")
+                    await m.reply_text(cc)
                     elif bcvid.startswith("63"):
                         try:
-                            #scraper = cloudscraper.create_scraper()
+                            scraper = cloudscraper.create_scraper()
                             html7 = s.get(f"{bc_url}/{bcvid}", headers=bc_hdr).content
                             video1 = json.loads(html7)
                             video_source1 = video1["sources"][5]
                             video_url1 = video_source1["src"]
-                            #print(video_url)
-                            #scraper = cloudscraper.create_scraper()
+                            print(video_url)
+                            scraper = cloudscraper.create_scraper()
                             html8 = s.get("https://elearn.crwilladmin.com/api/v1/livestreamToken?type=brightcove&vid="+vidid+"&token="+token).content
                             surl1 = json.loads(html8)
                             stoken1 = surl1["data"]["token"]
-                            #print(stoken)
+                            print(stoken)
                             
                             link = (video_url1+"&bcov_auth="+stoken1)
-                            #print(link)
+                            print(link)
                         except Exception as e:
                             print(str(e))
-                    #cc = (f"{lessonName}:{link}")
-                    #await m.reply_text(cc)
+                    cc = (f"{lessonName}:{link}")
+                    await m.reply_text(cc)
                     else:
                         link=("https://www.youtube.com/embed/"+bcvid)
                     cc = (f"{lessonName}::{link}")
                     with open(f"{mm }{t_name}.txt", 'a') as f:
                         f.write(f"{lessonName}:{link}\n")
-                    #await m.reply_document(f"{mm }{t_name}.txt")
+                    await m.reply_document(f"{mm }{t_name}.txt")
             except Exception as e:
                 await m.reply_text(str(e))
         await m.reply_document(f"{mm }{t_name}.txt")
-        #os.remove(f"{mm }{t_name}.txt")
+        os.remove(f"{mm }{t_name}.txt")
     except Exception as e:
         await m.reply_text(str(e))
     try:
