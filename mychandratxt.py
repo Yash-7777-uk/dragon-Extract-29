@@ -63,19 +63,19 @@ for course_dict in  courses_dict:
             video_title = f"{chapter_name}"
             videos_dict[video_title] = video_link
             mtext = f"{chapter_name}:{video_link}\n"
-#            open(f"{subject_title}.txt", "a").write(mtext)
+            open(f"{subject_title}.txt", "a").write(mtext)
             open(f"{course_id}.txt", "a").write(mtext)
         
         output_dict[subject_title] = videos_dict
-#        open(f"{course_title}/{subject_title}.txt", "w").write(mtext)
+        open(f"{course_title}/{subject_title}.txt", "w").write(mtext)
 
     open(f"{course_id}.json", "w").write(json.dumps(output_dict, indent=4))
-#    open(f"{course_title}.txt", "a").write(mtext)
+   open(f"{course_title}.txt", "a").write(mtext)
     print(f"Done:- {course_title}")
 
 print("\n", "Finished".center(60, "-"))
-#open(f"{course_title}.txt", "a").write(json.dumps(output_dict,"utf-8"))
-#print(f"Done:- {subject_title}")
+open(f"{course_title}.txt", "a").write(json.dumps(output_dict,"utf-8"))
+print(f"Done:- {subject_title}")
 print("\n", "Finished".center(60, "-"))
 open(f"{course_title}.html", "w").write(template.render(title=course_title, batch=course_title, topics=output_dict, type="videos"))
 open(f"{course_title}.html", "w").write(template.render(title=course_title, batch=course_title, topics=output_dict, type="notes"))
