@@ -79,7 +79,7 @@ async def account_login(bot: Client, m: Message):
     await input1.delete(True)
     res = requests.post(rwa_url, data=info, headers=hdr).content
     output = json.loads(res)
-    #print(output)
+    print(output)
     userid = output["data"]["userid"]
     token = output["data"]["token"]
     print(userid)
@@ -130,7 +130,7 @@ async def account_login(bot: Client, m: Message):
         t_name =data['course_name']
         FFF = "**BATCH-ID - BATCH NAME - INSTRUCTOR**"
         aa = f" ```{data['id']}```      - **{data['course_name']}**\n\n"
-        # aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
+         aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
