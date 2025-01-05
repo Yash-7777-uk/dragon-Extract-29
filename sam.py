@@ -27,7 +27,7 @@ headers = {
 }
 
 token = requests.get('https://e-utkarsh.com/web/home/get_states', headers=headers).json()["token"]
-#print(token)
+print(token)
 
 cookies = {
     'csrf_name': token,
@@ -52,8 +52,8 @@ headers = {
 
 data = "csrf_name="+token+"&mobile=9648658531&url=0&password=abc12345&submit=LogIn&device_token=null"
 log = requests.post('https://e-utkarsh.com/web/Auth/login', headers=headers, cookies=cookies, data=data).json()["response"]
-#decrypt = decrypt(log)
-#print(decrypt)
+decrypt = decrypt(log)
+print(decrypt)
 datas = "type=Batch&csrf_name="+ token +"&sort=0"
 res3 = requests.post('https://e-utkarsh.com/web/Profile/my_course', headers=headers, cookies=cookies, data=datas).json()["response"]
 f = open("demofile2.txt", "a")
