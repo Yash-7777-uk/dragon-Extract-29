@@ -74,7 +74,7 @@ async def account_login(bot: Client, m: Message):
     scraper = cloudscraper.create_scraper()
     res = scraper.post(rwa_url, data=info).content
     output = json.loads(res)
-    #print(output)
+    print(output)
     token = output["data"]["authToken"]
     hdr1 = {
             "appauthtoken": token,
@@ -90,7 +90,7 @@ async def account_login(bot: Client, m: Message):
     for data in b_data:
         FFF = "**BATCH-ID - BATCH NAME - INSTRUCTOR**"
         aa = f" ```{data['_id']}```      - **{data['title']}**\n\n"
-        # aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
+         aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
