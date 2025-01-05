@@ -76,7 +76,7 @@ async def account_login(bot: Client, m: Message):
     scraper = cloudscraper.create_scraper()
     res = scraper.post(rwa_url, data=info, headers=hdr).content
     output = json.loads(res)
-    #print(output)
+    print(output)
     userid = output["data"]["userid"]
     token = output["data"]["token"]
     hdr1 = {
@@ -86,10 +86,10 @@ async def account_login(bot: Client, m: Message):
         "User-Id": userid,
         "Authorization": token
         }
-    #print(userid)
-    #print(token)
+    print(userid)
+    print(token)
     await editable.edit("**login Successful**")
-    # await editable.edit(f"You have these Batches :-\n{raw_text}"
+    await editable.edit(f"You have these Batches :-\n{raw_text}"
     cour_url = "https://e1coachingcenterapi.classx.co.in/get/mycourse?userid="
 
     res1 = requests.get("https://e1coachingcenterapi.classx.co.in/get/mycourse?userid="+userid, headers=hdr1)
@@ -99,7 +99,7 @@ async def account_login(bot: Client, m: Message):
         t_name =data['course_name']
         FFF = "**BATCH-ID - BATCH NAME - INSTRUCTOR**"
         aa = f" ```{data['id']}```      - **{data['course_name']}**\n\n"
-        # aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
+         aa=f"**Batch Name -** {data['batchName']}\n**Batch ID -** ```{data['id']}```\n**By -** {data['instructorName']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
@@ -109,13 +109,13 @@ async def account_login(bot: Client, m: Message):
     input2 = message = await bot.listen(editable.chat.id)
     raw_text2 = input2.text
 
-    # sub_id_url="https://rgvikramjeetapi.classx.co.in/get/allsubjectfrmlivecourseclass?courseid="
+     sub_id_url="https://rgvikramjeetapi.classx.co.in/get/allsubjectfrmlivecourseclass?courseid="
     scraper = cloudscraper.create_scraper()
     html = scraper.get("https://e1coachingcenterapi.classx.co.in/get/allsubjectfrmlivecourseclass?courseid=" + raw_text2,headers=hdr1).content
     output0 = json.loads(html)
     subjID = output0["data"]
     await m.reply_text(subjID)
-    #SubiD = input("Enter the Subject Id Show in above Response")
+    SubiD = input("Enter the Subject Id Show in above Response")
 
     editable1 = await m.reply_text("**Enter the Subject Id Show in above Response")
     input3 = message = await bot.listen(editable.chat.id)
@@ -123,34 +123,34 @@ async def account_login(bot: Client, m: Message):
 
     res3 = requests.get("https://e1coachingcenterapi.classx.co.in/get/alltopicfrmlivecourseclass?courseid=" + raw_text2,"&subjectid=" + raw_text3, headers=hdr1)
     b_data2 = res3.json()['data']
-    # print(b_data2)
+     print(b_data2)
     vj = ""
     for data in b_data2:
         tids = (data["topicid"])
         idid = f"{tids}&"
         if len(f"{vj}{idid}") > 4096:
-            ##await m.reply_text(idid)
+            await m.reply_text(idid)
             vj = ""
         vj += idid
-    #print(vj)
+    print(vj)
     vp = ""
     for data in b_data2:
         tn = (data["topic_name"])
         tns = f"{tn}&"
         if len(f"{vp}{tn}") > 4096:
-            ##await m.reply_text(tns)
+            await m.reply_text(tns)
             vp = ""
         vp += tns
-    #print(vp)
+    print(vp)
     cool1 = ""
-    #BBB = ''
+    BBB = ''
     for data in b_data2:
         t_name = (data["topic_name"])
         tid = (data["topicid"])
         zz = len(tid)
         BBB = f"{'**TOPIC-ID    - TOPIC     - VIDEOS**'}\n"
         hh = f"```{tid}```     - **{t_name} - ({zz})**\n"
-        #hh = f"**Topic -** {t_name}\n**Topic ID - ** ```{tid}```\nno. of videos are : {zz}\n\n"
+        hh = f"**Topic -** {t_name}\n**Topic ID - ** ```{tid}```\nno. of videos are : {zz}\n\n"
         if len(f'{cool1}{hh}') > 4096:
             cool1 = ""
         cool1 += hh
@@ -193,7 +193,7 @@ async def account_login(bot: Client, m: Message):
                 tns = f"{tn}"
                 if len(f"{vp}{tn}") > 4096:
                     vp = ""
-        # print("Download Links: \n", tns
+        print("Download Links: \n", tns
                 vp += tn
             vs = ""
             for data in topicid:
@@ -201,19 +201,19 @@ async def account_login(bot: Client, m: Message):
                 tns0 = f"{tn0}"
                 if len(f"{vs}{tn0}") > 4096:
                     vs = ""
-            # print("Download Links: \n", tns
+             print("Download Links: \n", tns
                 vs += tn0
             cool2 = ""
-            #BBB1 = ''
+            BBB1 = ''
             for data in topicid:
                 if data["embed_url"]:
                     b64 = (data["embed_url"])
                 else:
                     b64 = (data["pdf_link"])
-                #if data["encrypted_links"]:
-                #    b64 = (data["encrypted_links"][0]["path"])
-                #else:
-                #    b64 = (data["pdf_link"])
+                if data["encrypted_links"]:
+                    b64 = (data["encrypted_links"][0]["path"])
+                else:
+                    b64 = (data["pdf_link"])
                 tid = (data["Title"])
                 zz = len(tid)
                 key = "638udh3829162018".encode("utf8")
@@ -221,15 +221,15 @@ async def account_login(bot: Client, m: Message):
                 ciphertext = bytearray.fromhex(b64decode(b64.encode()).hex())
                 cipher = AES.new(key, AES.MODE_CBC, iv)
                 plaintext = unpad(cipher.decrypt(ciphertext), AES.block_size)
-                #print(plaintext)
+                print(plaintext)
                 b=plaintext.decode('utf-8')
                 cc0 = (f"{tid}:{b}")
                 if len(f'{cool2}{cc0}') > 4096:
-                    ##await m.reply_text(hh)
+                    await m.reply_text(hh)
                     cool2 = ""
                 cool2 += cc0
                 mm = "E1-Coaching-Center"
-                #await m.reply_text(BBB1, hh)
+                await m.reply_text(BBB1, hh)
                 
                 with open(f'{mm}.txt', 'a') as f:
                     f.write(f"{tid}:{b}\n")
