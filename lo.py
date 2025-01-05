@@ -58,11 +58,11 @@ def exec(cmd):
         output = process.stdout.decode()
         error = process.stderr.decode()
         if error:
-          #print(f'[error]\n{error}')
+          print(f'[error]\n{error}')
           return f'[error]\n{error}'
         if stdout:
           print(f'[stdout]\n{output}')
-        #err = process.stdout.decode()
+        err = process.stdout.decode()
 def pull_run(work, cmds):
     with concurrent.futures.ThreadPoolExecutor(max_workers=work) as executor:
         fut = executor.map(exec,cmds)
@@ -77,7 +77,7 @@ bot = Client(
 
 @bot.on_message(filters.command(["down"]) & ~filters.edited)
 async def account_login(bot: Client, m: Message):
-    #s = requests.Session()
+    s = requests.Session()
     global cancel
     cancel = False
     editable = await m.reply_text(
@@ -85,7 +85,7 @@ async def account_login(bot: Client, m: Message):
     hdr = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
-    # 'Content-Length': '72',
+     'Content-Length': '72',
     'Host': 'ignitedminds.live',
     'Connection': 'Keep-Alive',
     'User-Agent': 'Apache-HttpClient/UNAVAILABLE (java 1.4)',
@@ -111,8 +111,8 @@ async def account_login(bot: Client, m: Message):
     print(response.content)
     input1: Message = await bot.listen(editable.chat.id)
     raw_text = input1.text
-    #info["mobilenumber"] = raw_text.split("*")[0]
-    #info["password"] = raw_text.split("*")[1]
+    info["mobilenumber"] = raw_text.split("*")[0]
+    info["password"] = raw_text.split("*")[1]
     await input1.delete(True)
     res = requests.post('https://ignitedminds.live/android/User/login_user', headers=hdr, data=info).text
     print(res)
