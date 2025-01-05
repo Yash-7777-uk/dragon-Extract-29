@@ -67,7 +67,7 @@ async def forward(bot: Client , m: Message):
     t_chat = msg.forward_from_chat.id
     msg1 = await bot.ask(m.chat.id, "**Send Starting Message From Where you want to Start forwarding**")
     msg2 = await bot.ask(m.chat.id, "**Send Ending Message from same chat**")
-   # print(msg1.forward_from_message_id, msg1.forward_from_chat.id, msg1.forward_from_message_id)
+    print(msg1.forward_from_message_id, msg1.forward_from_chat.id, msg1.forward_from_message_id)
     i_chat = msg1.forward_from_chat.id
     s_msg = int(msg1.forward_from_message_id)
     f_msg = int(msg2.forward_from_message_id)+1
