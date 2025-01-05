@@ -85,14 +85,14 @@ async def account_login(bot: Client, m: Message):
     mm = "KhanSir"
     for data in response:
         FFF = "**BATCH-ID  -  BATCH NAME**"
-        #batch=(data["name"])
+        batch=(data["name"])
         aa = f" ```{data['_id']}```      - **{data['name']}**\n\n"
-        #aa=f"```{data['name']}```  :  ```{data['_id']}\n```"
+        aa=f"```{data['name']}```  :  ```{data['_id']}\n```"
         if len(f'{cool}{aa}') > 4096:
             cool = ""
         cool += aa
     await editable.edit(f'{"**You have these batches :-**"}\n\n{FFF}\n\n{cool}')
-    #await editable.edit(f'{"**You have these batches :-**"}\n\n{FFF}\n\n{cool}')
+    await editable.edit(f'{"**You have these batches :-**"}\n\n{FFF}\n\n{cool}')
     editable1= await m.reply_text("**Now send the Batch ID to Download**")
     input3 = message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
@@ -136,7 +136,7 @@ async def account_login(bot: Client, m: Message):
       for i in range(1,tpage)[::-1]:
         html4 = s.get("https://api.penpencil.xyz/v2/batches/"+raw_text3+"/subject/"+raw_text4+"/contents?page="+str(i)+"&tag="+t+"&contentType=videos",headers=headers).json()["data"]
         html4.reverse()
-        #break
+        break
         for dat in html4:
           try:
             class_title=(dat["topic"])
